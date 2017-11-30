@@ -32,3 +32,7 @@ insert_string () {
 delete_string () {
     # Prompt for string and then delete it.
 }
+
+test_func () {
+	# foo
+}
