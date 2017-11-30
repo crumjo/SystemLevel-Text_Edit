@@ -1,29 +1,45 @@
 #! /bin/bash
 
-load () {
+load_file () {
     echo -n "Enter a file to load: "
     read file
 
     if [ ! -f $file ]
     then
-        printf "'$file' does not exist.\n"
-    else
-        printf "'$file' has been loaded.\n"
+        while [ ! -f $file ]
+        do
+            echo -n "'$file' does not exist. Enter an existing file: "
+            read file
+        done
     fi
+    printf "'$file' has been loaded.\n"
 }
 
 display_file () {
-    echo "Print contents of file loaded."
+    cat $1
 }
 
 count_string () {
-    echo "Prompt for string input."
-    echo "Count frequency of s in file."
+    echo -n "Enter a string to find it's frequency: "
+    read s
+    freq=$(grep -o $s $1 | wc -l)
+    printf "'$s' occurs $freq times.\n"
+}
+
+find_string () {
+    echo -n "Enter a string to find: "
+    read s
+    sed -n "/$s/p" "$1"
 }
 
 replace_string () {
-    echo "Prompt for string to replace."
-    echo "Prompt for new string."
+    echo -n "Enter a string you wish to replace: "
+    read replace
+
+    echo -n "Enter the new string: "
+    read new
+
+
 }
 
 insert_string () {
@@ -42,28 +58,57 @@ echo -e "1: Load a text file \t\t\t 2: Display the text file
 7: Delete a string \t\t\t 8: Exit"
 
 load_check=0
+
 while [ $load_check -ne 1 ]
 do
     echo -n "Enter a 1 to load a text file: "
     read load_choice
-    echo "LOAD CHOICE: $load_choice"
 
     if [ $load_choice -eq 1 ]
     then
-        printf "Good choice!\n"
-        let load_check=$load_check+1
-    else
-        printf "Bad choice...\n"
+		echo -n "Enter a file to load: "
+		read file
+
+		if [ ! -f $file ]
+		then
+			while [ ! -f $file ]
+         	do
+            	echo -n "'$file' does not exist. Enter an existing file: "
+            	read file
+       		done
+     	fi
+        let load_check=$loadcheck+1
     fi
 done
+
+printf "'$file' has been loaded.\n"
 
 while [ 1 ]
 do
     echo -n "Enter a command: "
     read cmd
 
-    if [ $cmd -eq 8 ]
+    if [ $cmd -eq 2 ]
     then
+       display_file $file
+    elif [ $cmd -eq 3 ]
+    then
+        count_string $file
+    elif [ $cmd -eq 4 ]
+    then
+        find_string $file
+    elif [ $cmd -eq 5 ]
+    then
+        replace_string $file
+    elif [ $cmd -eq 6 ]
+    then
+        insert_string
+    elif [ $cmd -eq 7 ]
+    then
+        delete_string
+    elif [ $cmd -eq 8 ]
+    then
+        echo "The editor will now exit."
         exit 1
     fi
 
