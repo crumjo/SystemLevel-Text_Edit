@@ -34,22 +34,27 @@ find_string () {
 
 replace_string () {
     echo -n "Enter a string you wish to replace: "
-    read replace
+    read old
 
     echo -n "Enter the new string: "
     read new
 
-
+    sed -i "s/$old/$new/g" "$1"
 }
 
 insert_string () {
-    echo "Prompt for existing string input, the new one will be inserted after."
-    echo "Prompt for new string."
-    echo "Insert new string after existing string."
+    # FIX ME
+    echo -n "Enter a string to insert: "
+    read insert
+
+    echo -n "Provide a string where the new one will be inserted: "
+    read location
+
+    sed -i "s/$location/$insert" "$1"
 }
 
 delete_string () {
-    echo "Prompt for string and then delete it."
+    # FIX ME
 }
 
 echo -e "1: Load a text file \t\t\t 2: Display the text file
@@ -102,10 +107,10 @@ do
         replace_string $file
     elif [ $cmd -eq 6 ]
     then
-        insert_string
+        insert_string $file
     elif [ $cmd -eq 7 ]
     then
-        delete_string
+        delete_string $file
     elif [ $cmd -eq 8 ]
     then
         echo "The editor will now exit."
