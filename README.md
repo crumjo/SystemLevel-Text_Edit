@@ -1,1 +1,5 @@
-# SystemLevel-Text_Edit
+**Simple_Text**  
+_A simple, lightweight text editor._  
+-----------------------------------------------------------------------
+
+
