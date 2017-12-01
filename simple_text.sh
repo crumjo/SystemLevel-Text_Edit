@@ -50,12 +50,14 @@ insert_string () {
     echo -n "Provide a string where the new one will be inserted: "
     read location
 
-    sed -i.bu "s/$location/$insert" "$1"
+    sed -i "s/$location/$insert" "$1"
 }
 
 delete_string () {
-    # FIX ME
-    echo delete the string
+	echo -n "Enter a string to delete: "
+	read del
+
+	sed -i "s/$del//g" "$1"
 }
 
 echo -e "1: Load a text file \t\t\t 2: Display the text file

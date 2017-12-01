@@ -1,7 +1,7 @@
-This is an example text file.
+This is an xampl txt fil.
 
-Here is a new line!
+Hr is a nw lin!
 
-This is a test.
+This is a tst.
 
-This.
+This is a random  in th string xxxxxxxx
