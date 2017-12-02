@@ -50,7 +50,7 @@ insert_string () {
     echo -n "Provide a string where the new one will be inserted: "
     read location
 
-    sed -i "s/$location/$insert" "$1"
+    sed -i "s/$location/$location$insert/g" "$1"
 }
 
 delete_string () {
