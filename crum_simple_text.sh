@@ -118,7 +118,10 @@ do
     echo -n "Enter a command: "
     read cmd
 	
-	if [ $cmd -eq 1 ]
+	if [[ -n ${cmd//[0-9]/} ]]; then
+		echo "Command not recognized."
+		message	
+	elif [ $cmd -eq 1 ]
 	then
 		printf "File already loaded.\n"
     elif [ $cmd -eq 2 ]
@@ -143,6 +146,9 @@ do
     then
         echo "The editor will now exit."
         exit 1
-    fi
+	else
+		echo "Command not recognized."
+		message
+	fi
 
 done
