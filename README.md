@@ -2,7 +2,8 @@
 _A simple, lightweight text editor._  
 -----------------------------------------------------------------------
 ## Installing
-Simply download crum_simple_text.sh or clone the repository.
+Download the script or clone the repository:
+https://github.com/crumjo/SystemLevel-Text_Edit.git
 
 ## Running
 There are two ways to run this script:
@@ -10,8 +11,4 @@ There are two ways to run this script:
 1. bash crum_simple_text.sh
 
 ## Usage
-Note: Only one file can be loaded per session. To load a new file, re-run the script.
-
-Commands:
-1. One
-1. Two
+Only one file can be loaded per session. To load a new file, re-run the script.
