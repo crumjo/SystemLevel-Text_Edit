@@ -4,8 +4,7 @@ load_file () {
     echo -n "Enter a file to load: "
     read file
 
-    if [ ! -f $file ]
-    then
+    if [ ! -f $file ]; then
         while [ ! -f $file ]
         do
             echo -n "'$file' does not exist. Enter an existing file: "
@@ -23,9 +22,8 @@ count_string () {
     echo -n "Enter a string to find it's frequency: "
     read s
 	freq=$(grep -o $s $1 | wc -l)
-	
-	if [ -z "$freq" ]
-	then	
+
+	if [ -z "$freq" ]; then
 		$freq=0
 	fi
 	printf "'$s' occurs $freq time(s).\n"
@@ -37,7 +35,7 @@ find_string () {
 	if grep -q "$s" $1; then
 		sed -n "/$s/p" "$1"
 	else
-		echo "'$s' could not be found."	
+		echo "'$s' could not be found."
 	fi
 }
 
@@ -83,7 +81,7 @@ message () {
 	echo -e "\n1: Load a text file \t\t\t 2: Display the text file"
 	echo -e "3: Show the frequency of a string \t 4: Find a string"
 	echo -e "5: Replace a string \t\t\t 6: Insert a string"
-	echo -e "7: Delete a string \t\t\t 8: Exit\n"	
+	echo -e "7: Delete a string \t\t\t 8: Exit\n"
 }
 
 message
@@ -94,13 +92,11 @@ do
     echo -n "Enter a 1 to load a text file: "
     read load_choice
 
-    if [ $load_choice -eq 1 ]
-    then
+    if [ $load_choice -eq 1 ]; then
 		echo -n "Enter a file to load: "
 		read file
 
-		if [ ! -f $file ]
-		then
+		if [ ! -f $file ]; then
 			while [ ! -f $file ]
          	do
             	echo -n "'$file' does not exist. Enter an existing file: "
@@ -117,38 +113,39 @@ while [ 1 ]
 do
     echo -n "Enter a command: "
     read cmd
-	
+
 	if [[ -n ${cmd//[0-9]/} ]]; then
 		echo "Command not recognized."
-		message	
-	elif [ $cmd -eq 1 ]
-	then
+		message
+
+    elif [ $cmd -eq 1 ]; then
 		printf "File already loaded.\n"
-    elif [ $cmd -eq 2 ]
-    then
+
+    elif [ $cmd -eq 2 ]; then
        display_file $file
-    elif [ $cmd -eq 3 ]
-    then
+
+   elif [ $cmd -eq 3 ]; then
         count_string $file
-    elif [ $cmd -eq 4 ]
-    then
+    elif [ $cmd -eq 4 ]; then
         find_string $file
-    elif [ $cmd -eq 5 ]
-    then
+
+    elif [ $cmd -eq 5 ]; then
         replace_string $file
-    elif [ $cmd -eq 6 ]
-    then
+
+    elif [ $cmd -eq 6 ]; then
         insert_string $file
-    elif [ $cmd -eq 7 ]
-    then
+
+    elif [ $cmd -eq 7 ]; then
         delete_string $file
-    elif [ $cmd -eq 8 ]
-    then
+
+    elif [ $cmd -eq 8 ]; then
         echo "The editor will now exit."
         exit 1
-	else
+
+    else
 		echo "Command not recognized."
 		message
-	fi
+
+    fi
 
 done
