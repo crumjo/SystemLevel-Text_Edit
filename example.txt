@@ -1,7 +1,7 @@
-This is an xampl txtHERE fil.
+  an xampl xTHERE fil.
 
-Hr is a nw lin!
+Hr  a nw lin!
 
-This is a tst.
+  a s.
 
-This is a random  in th string xxxxxxxx
+  a random  in h sring xxxxxxxx

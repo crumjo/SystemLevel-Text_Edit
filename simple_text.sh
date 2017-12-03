@@ -22,14 +22,23 @@ display_file () {
 count_string () {
     echo -n "Enter a string to find it's frequency: "
     read s
-    freq=$(grep -o $s $1 | wc -l)
-    printf "'$s' occurs $freq times.\n"
+	freq=$(grep -o $s $1 | wc -l)
+	
+	if [ -z "$freq" ]
+	then	
+		$freq=0
+	fi
+	printf "'$s' occurs $freq time(s).\n"
 }
 
 find_string () {
     echo -n "Enter a string to find: "
     read s
-    sed -n "/$s/p" "$1"
+	if grep -q "$s" $1; then
+		sed -n "/$s/p" "$1"
+	else
+		echo "'$s' could not be found."	
+	fi
 }
 
 replace_string () {
@@ -39,32 +48,45 @@ replace_string () {
     echo -n "Enter the new string: "
     read new
 
-    sed -i "s/$old/$new/g" "$1"
+	if grep -q "$old" $1; then
+    	sed -i "s/$old/$new/g" "$1"
+	else
+		echo "'$old' could not be found."
+	fi
 }
 
 insert_string () {
-    # FIX ME
     echo -n "Enter a string to insert: "
     read insert
 
     echo -n "Provide a string where the new one will be inserted: "
     read location
 
-    sed -i "s/$location/$location$insert/g" "$1"
+	if grep -q "$location" $1; then
+    	sed -i "s/$location/$location$insert/g" "$1"
+	else
+		echo "'$location' could not be found. '$insert' will not be inserted."
+	fi
 }
 
 delete_string () {
 	echo -n "Enter a string to delete: "
 	read del
-
-	sed -i "s/$del//g" "$1"
+	if grep -q "$del" $1; then
+		sed -i "s/$del//g" "$1"
+	else
+		echo "'$del' could not be found."
+	fi
 }
 
-echo -e "1: Load a text file \t\t\t 2: Display the text file
-3: Show the frequency of a string \t 4: Find a string
-5: Replace a string \t\t\t 6: Insert a string
-7: Delete a string \t\t\t 8: Exit"
+message () {
+	echo -e "\n1: Load a text file \t\t\t 2: Display the text file"
+	echo -e "3: Show the frequency of a string \t 4: Find a string"
+	echo -e "5: Replace a string \t\t\t 6: Insert a string"
+	echo -e "7: Delete a string \t\t\t 8: Exit\n"	
+}
 
+message
 load_check=0
 
 while [ $load_check -ne 1 ]
@@ -95,8 +117,11 @@ while [ 1 ]
 do
     echo -n "Enter a command: "
     read cmd
-
-    if [ $cmd -eq 2 ]
+	
+	if [ $cmd -eq 1 ]
+	then
+		printf "File already loaded.\n"
+    elif [ $cmd -eq 2 ]
     then
        display_file $file
     elif [ $cmd -eq 3 ]
